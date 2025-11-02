@@ -1,0 +1,317 @@
+
+{% comment %} 
+ Created By John Henson Caniedo 
+ 10/19/2025
+{% endcomment %}
+
+{% stylesheet %}
+
+.page-width {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+
+.custom-collection-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  padding: 3rem 0;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 5px;
+}
+
+@media (min-width: 750px) {
+  .custom-collection-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.collection-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1px;
+  cursor: pointer;
+}
+
+.collection-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.collection-card:hover img {
+  transform: scale(1.05);
+}
+
+.collection-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  transition: background 0.3s ease;
+}
+
+.collection-card:hover .collection-card__overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.collection-card__content {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  color: #fff;
+}
+
+.collection-card__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.collection-card__subtitle {
+  font-size: 0.95rem;
+  margin-top: 0.35rem;
+  opacity: 0.9;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.collection-card__subtitle::after {
+  content: "→";
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.collection-card:hover .collection-card__subtitle::after {
+  transform: translateX(4px);
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+  will-change: opacity, transform;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === MOBILE IMAGE SIZE ADJUSTMENT === */
+@media (max-width: 749px) {
+  .custom-collection-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+  }
+
+  .collection-card {
+    width: 90%;
+    max-width: 360px;
+  }
+
+  .collection-card img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* === Section Title (Desktop Only) === */
+.custom-collection-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  color: #111;
+  text-align: left;
+  width: 70%;
+  margin: 0 auto;
+  text-align: left; 
+}
+
+@media (max-width: 749px) {
+  .custom-collection-title {
+    display: none;
+  }
+}
+.button--primary {
+  background-color: #000;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.button--primary:hover {
+  background-color: #222;
+}
+
+.button--secondary {
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #000;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.button--secondary:hover {
+  background-color: rgba(0,0,0,0.1);
+}
+
+
+
+
+{% endstylesheet %}
+
+<div class="page-width">
+  {% if section.settings.section_title != blank %}
+    <h2 class="custom-collection-title">
+      {{ section.settings.section_title }}
+    </h2>
+  {% endif %}
+  <div class="custom-collection-grid">
+    {% for block in section.blocks %}
+      {% assign collection = collections[block.settings.collection] %}
+      {% if collection %}
+        <div class="collection-card fade-up">
+          <a href="{{ collection.url }}">
+            <img 
+              src="{{ block.settings.image | img_url: '800x' }}" 
+              alt="{{ collection.title }}"
+              style="border-radius: {{ block.settings.image_radius }}px;"
+            >
+            <div class="collection-card__overlay"></div>
+          </a>
+          <div class="collection-card__content">
+            <h3 
+              class="collection-card__title"
+              style="color: {{ block.settings.title_color }};"
+            >
+              {{ block.settings.custom_title | default: collection.title }}
+            </h3>
+
+            {% if block.settings.subtitle != blank %}
+              <div class="collection-card__subtitle">{{ block.settings.subtitle }}</div>
+            {% endif %}
+
+            {% if block.settings.button_label != blank %}
+              <a 
+                href="{{ collection.url }}" 
+                class="button {% if block.settings.button_style == 'secondary' %}button--secondary{% else %}button--primary{% endif %}"
+              >
+                {{ block.settings.button_label }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const fadeElements = document.querySelectorAll(".custom-collection-grid .fade-up");
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  fadeElements.forEach(el => observer.observe(el));
+});
+</script>
+
+{% schema %}
+{
+  "name": "Custom Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title",
+      "default": "Merch"
+    },
+    {
+    "type": "select",
+    "id": "button_style",
+    "label": "Button style",
+    "default": "primary",
+    "options": [
+    {
+      "value": "primary",
+      "label": "Primary"
+    },
+    {
+      "value": "secondary",
+      "label": "Secondary"
+    }
+  ]
+}
+
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Choose Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom Image"
+        },
+        {
+        "type": "text",
+        "id": "custom_title",
+        "label": "Custom Title (optional)",
+        "default": "Collection Title"
+        },
+        {
+        "type": "color",
+        "id": "title_color",
+        "label": "Title Color",
+        "default": "#ffffff"
+        },
+        {
+        "type": "range",
+        "id": "image_radius",
+        "label": "Image Corner Radius (px)",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 8
+        },
+        {
+        "type": "text",
+        "id": "subtitle",
+        "label": "Button Text",
+        "default": "Shop now →"
+        }
+
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Collection Grid 3 Columns"
+    }
+  ]
+}
+{% endschema %}
