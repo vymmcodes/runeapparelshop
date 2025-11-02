@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "hero_irjTFL": {
       "type": "hero",
@@ -233,6 +234,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
+            "link": "",
             "video_loop": true,
             "video_autoplay": false,
             "image_position": "cover",
@@ -313,6 +315,7 @@
       },
       "name": "t:names.featured_product",
       "settings": {
+        "product": "",
         "layout": "media-left",
         "color_scheme": "scheme-2",
         "padding-block-start": 0,
@@ -328,6 +331,7 @@
           "static": true,
           "settings": {
             "media_type": "image",
+            "link": "",
             "video_loop": true,
             "video_autoplay": false,
             "image_position": "cover",
@@ -408,6 +412,7 @@
       },
       "name": "t:names.featured_product",
       "settings": {
+        "product": "",
         "layout": "media-right",
         "color_scheme": "scheme-2",
         "padding-block-start": 0,
@@ -519,7 +524,6 @@
               "type": "_product-card-group",
               "name": "t:names.group",
               "settings": {
-                "open_in_new_tab": false,
                 "content_direction": "column",
                 "vertical_on_mobile": true,
                 "horizontal_alignment": "flex-start",
@@ -547,6 +551,8 @@
                 "overlay_color": "#00000026",
                 "overlay_style": "solid",
                 "gradient_direction": "to top",
+                "link": "",
+                "open_in_new_tab": false,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -635,92 +641,49 @@
         "padding-block-end": 48
       }
     },
-    "collection_list_bGtkjG": {
-      "type": "collection-list",
+    "rune_collection_grid_a6TEHD": {
+      "type": "Rune-Collection-Grid",
       "blocks": {
-        "static-collection-card": {
-          "type": "_collection-card",
-          "name": "t:names.collection_card",
-          "static": true,
+        "collection_card_zUhkQk": {
+          "type": "collection_card",
           "settings": {
-            "placement": "on_image",
-            "horizontal_alignment": "flex-start",
-            "vertical_alignment": "flex-end",
-            "collection_card_gap": 8,
-            "inherit_color_scheme": true,
-            "color_scheme": "scheme-6",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0
-          },
-          "blocks": {
-            "collection_title_YE93WK": {
-              "type": "collection-title",
-              "name": "t:names.collection_title",
-              "settings": {
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h5",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 4,
-                "padding-inline-start": 8,
-                "padding-inline-end": 8
-              },
-              "blocks": {}
-            },
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "portrait",
-                "toggle_overlay": false,
-                "overlay_color": "#00000026",
-                "overlay_style": "solid",
-                "gradient_direction": "to top",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "collection_title_YE93WK"
-          ]
+            "collection": "",
+            "custom_title": "Collection Title",
+            "title_color": "#ffffff",
+            "image_radius": 8,
+            "subtitle": "Shop now →"
+          }
+        },
+        "collection_card_rxK3eE": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection Title",
+            "title_color": "#ffffff",
+            "image_radius": 8,
+            "subtitle": "Shop now →"
+          }
+        },
+        "collection_card_4kbKgq": {
+          "type": "collection_card",
+          "settings": {
+            "collection": "",
+            "custom_title": "Collection Title",
+            "title_color": "#ffffff",
+            "image_radius": 8,
+            "subtitle": "Shop now →"
+          }
         }
       },
-      "name": "t:names.collections_grid",
+      "block_order": [
+        "collection_card_zUhkQk",
+        "collection_card_rxK3eE",
+        "collection_card_4kbKgq"
+      ],
+      "name": "Custom Collection Grid 3 Columns",
       "settings": {
-        "layout_type": "grid",
-        "carousel_on_mobile": true,
-        "columns": 3,
-        "mobile_columns": "1",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 0,
-        "bento_gap": 8,
-        "rows_gap": 0,
-        "max_collections": 4,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "full-width",
-        "gap": 0,
-        "color_scheme": "",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "section_title": "Merch",
+        "button_style": "primary"
       }
     }
   },
@@ -730,6 +693,6 @@
     "featured_product_yEF9dK",
     "featured_product_kAzr6f",
     "product_list_nQbyNK",
-    "collection_list_bGtkjG"
+    "rune_collection_grid_a6TEHD"
   ]
 }
